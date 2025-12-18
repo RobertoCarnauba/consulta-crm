@@ -3,6 +3,7 @@ package com.crmconsulta.service;
 import org.springframework.stereotype.Service;
 
 import com.crmconsulta.dto.MedicoResponseDTO;
+import com.crmconsulta.dto.MedicoUpdateDTO;
 import com.crmconsulta.entidade.Medico;
 import com.crmconsulta.repository.MedicoRepository;
 
@@ -20,6 +21,20 @@ public class MedicoService {
 	public MedicoResponseDTO buscarPorId(Long id) {
 		Medico medico = repository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("--- Médico não LOCALIZADO! ---"));
+		return new MedicoResponseDTO(medico);
+	}
+	
+	
+	public MedicoResponseDTO atualizar(Long id, MedicoUpdateDTO dto) {
+		Medico medico = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("--- Médico não LOCALIZADO! ---"));
+		
+		medico.setNome(dto.nome());
+		medico.setEmail(dto.email());
+		medico.setTelefone(dto.telefone());
+		
+		repository.save(medico);
+		
+		
 		return new MedicoResponseDTO(medico);
 	}
 

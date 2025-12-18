@@ -3,10 +3,13 @@ package com.crmconsulta.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crmconsulta.dto.MedicoResponseDTO;
+import com.crmconsulta.dto.MedicoUpdateDTO;
 import com.crmconsulta.service.MedicoService;
 
 @RestController
@@ -22,6 +25,14 @@ public class MedicoController {
 	@GetMapping("/{id}")
 	public ResponseEntity<MedicoResponseDTO> buscarPorId(@PathVariable Long id){
 		return ResponseEntity.ok(service.buscarPorId(id));
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<MedicoResponseDTO> atualizar(
+			@PathVariable Long id,
+			@RequestBody  MedicoUpdateDTO dto){
+				return ResponseEntity.ok(service.atualizar(id, dto));
+		
 	}
 
 }

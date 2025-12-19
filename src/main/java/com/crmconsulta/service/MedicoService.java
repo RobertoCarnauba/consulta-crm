@@ -27,7 +27,9 @@ public class MedicoService {
 	
 	
 	public MedicoResponseDTO atualizar(Long id, MedicoUpdateDTO dto) {
-		Medico medico = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("--- Médico não LOCALIZADO! ---"));
+		
+		Medico medico = repository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("--- Médico não LOCALIZADO! ---"));
 		
 		medico.setNome(dto.nome());
 		medico.setEmail(dto.email());
@@ -35,13 +37,13 @@ public class MedicoService {
 		
 		repository.save(medico);
 		
-		
 		return new MedicoResponseDTO(medico);
 	}
 	
 	public MedicoResponseDTO criar(MedicoCreateDTO dto) {
 		
 		Medico medico = new Medico();
+		
 		medico.setNome(dto.nome());
 		medico.setCrm(dto.crm());
 		medico.setEmail(dto.email());
@@ -60,5 +62,13 @@ public class MedicoService {
 		
 		return new MedicoResponseDTO(medico);
 	}
+	
+	public void deletar(Long id) {
+	    if (!repository.existsById(id)) {
+	        throw new EntityNotFoundException("Médico não encontrado");
+	    }
+	    repository.deleteById(id);
+	}
+
 
 }

@@ -2,6 +2,7 @@ package com.crmconsulta.service;
 
 import org.springframework.stereotype.Service;
 
+import com.crmconsulta.dto.MedicoCreateDTO;
 import com.crmconsulta.dto.MedicoResponseDTO;
 import com.crmconsulta.dto.MedicoUpdateDTO;
 import com.crmconsulta.entidade.Medico;
@@ -34,6 +35,28 @@ public class MedicoService {
 		
 		repository.save(medico);
 		
+		
+		return new MedicoResponseDTO(medico);
+	}
+	
+	public MedicoResponseDTO criar(MedicoCreateDTO dto) {
+		
+		Medico medico = new Medico();
+		medico.setNome(dto.nome());
+		medico.setCrm(dto.crm());
+		medico.setEmail(dto.email());
+		medico.setEspecialidade(dto.especialidade());
+		medico.setLogradouro(dto.logradouro());
+		medico.setBairro(dto.bairro());
+		medico.setCep(dto.cep());
+		medico.setComplemento(dto.complemento());
+		medico.setNumero(dto.numero());
+		medico.setUf(dto.uf());
+		medico.setCidade(dto.cidade());
+		medico.setAtivo(dto.ativo());
+		medico.setTelefone(dto.telefone());
+		
+		repository.save(medico);
 		
 		return new MedicoResponseDTO(medico);
 	}

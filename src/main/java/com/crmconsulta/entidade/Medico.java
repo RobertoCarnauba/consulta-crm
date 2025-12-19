@@ -32,6 +32,18 @@ public class Medico {
 	
 	private String telefone;
 	
+	private String especialidade;
+	
+	private String logradouro;
+	private String bairro;
+	private String cep;
+	private String complemento;
+	private String numero;
+	private String uf;
+	private String cidade;
+	private Boolean ativo;
+	
+	
 	@Column(nullable = false, unique = true)
 	private String crm;
 	

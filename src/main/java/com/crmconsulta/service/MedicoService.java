@@ -1,5 +1,10 @@
 package com.crmconsulta.service;
 
+import java.awt.print.Pageable;
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.crmconsulta.dto.MedicoCreateDTO;
@@ -25,6 +30,10 @@ public class MedicoService {
 		return new MedicoResponseDTO(medico);
 	}
 	
+	public Page<MedicoResponseDTO> listar(org.springframework.data.domain.Pageable pageable) {
+	    return repository.findAll(pageable)
+	            .map(MedicoResponseDTO::new);
+	}
 	
 	public MedicoResponseDTO atualizar(Long id, MedicoUpdateDTO dto) {
 		

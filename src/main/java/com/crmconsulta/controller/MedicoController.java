@@ -2,6 +2,9 @@ package com.crmconsulta.controller;
 
 import java.net.URI;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +37,15 @@ public class MedicoController {
 	public ResponseEntity<MedicoResponseDTO> buscarPorId(@PathVariable Long id){
 		return ResponseEntity.ok(service.buscarPorId(id));
 	}
+	
+	@GetMapping
+	public ResponseEntity<Page<MedicoResponseDTO>> listar(
+	        @PageableDefault(size = 10, sort = "nome") Pageable pageable
+	) {
+	    Page<MedicoResponseDTO> page = service.listar(pageable);
+	    return ResponseEntity.ok(page);
+	}
+
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<MedicoResponseDTO> atualizar(
